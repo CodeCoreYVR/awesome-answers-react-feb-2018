@@ -18,9 +18,9 @@ function QuestionDetails(props) {
 function AnswerDetails(props) {
   return (
     <div className="AnswerDetails">
-      <p>Deep Sky Blue.</p>
-      <p>By Steve</p>
-      <p><strong>Created at:</strong> 2018-01-01</p>
+      <p>{props.body}</p>
+      <p>By {props.user.full_name}</p>
+      <p><strong>Created at:</strong> {props.created_at}</p>
     </div>
   )
 }
@@ -36,7 +36,11 @@ function QuestionShowPage(props) {
         created_at={new Date().toLocaleString()}
       />
       <h2>Answers</h2>
-      <AnswerDetails />
+      <AnswerDetails
+        body="Deep Sky Blue."
+        user={{full_name: "Steve"}}
+        created_at={new Date().toLocaleString()}
+      />
     </main>
   )
 }
