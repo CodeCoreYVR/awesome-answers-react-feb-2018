@@ -6,13 +6,13 @@ import registerServiceWorker from './registerServiceWorker';
 function QuestionDetails(props) {
   return (
     <div className="QuestionDetails">
-      <h1>What is your favourite color?</h1>
-      <p>Red, green, blue, magenta, yellow, cyan, etc.</p>
-      <p>By Bridge Troll</p>
-      <p><strong>View Count:</strong> 111</p>
-      <p><strong>Created at:</strong> 2018-01-01</p>
+      <h1>{props.title}</h1>
+      <p>{props.body}</p>
+      <p>By {props.user.full_name}</p>
+      <p><strong>View Count:</strong> {props.view_count}</p>
+      <p><strong>Created at:</strong> {props.created_at}</p>
     </div>
-  )
+  );
 }
 
 function AnswerDetails(props) {
@@ -28,7 +28,13 @@ function AnswerDetails(props) {
 function QuestionShowPage(props) {
   return (
     <main className="QuestionShowPage">
-      <QuestionDetails />
+      <QuestionDetails
+        title="What is your favourite color?"
+        body="Red, Blue, Magenta, etc."
+        user={{full_name: "Steve"}}
+        view_count={1000}
+        created_at={new Date().toLocaleString()}
+      />
       <h2>Answers</h2>
       <AnswerDetails />
     </main>
