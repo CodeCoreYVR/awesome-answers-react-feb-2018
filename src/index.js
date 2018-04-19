@@ -25,8 +25,18 @@ function AnswerDetails(props) {
   )
 }
 
+function QuestionShowPage(props) {
+  return (
+    <main className="QuestionShowPage">
+      <QuestionDetails />
+      <h2>Answers</h2>
+      <AnswerDetails />
+    </main>
+  )
+}
+
 ReactDOM.render(
-  <AnswerDetails />,
+  <QuestionShowPage />,
   document.getElementById('root')
 );
 registerServiceWorker();
