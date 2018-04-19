@@ -10,13 +10,23 @@ function QuestionDetails(props) {
       <p>Red, green, blue, magenta, yellow, cyan, etc.</p>
       <p>By Bridge Troll</p>
       <p><strong>View Count:</strong> 111</p>
-      <p>Created 10 days ago</p>
+      <p><strong>Created at:</strong> 2018-01-01</p>
+    </div>
+  )
+}
+
+function AnswerDetails(props) {
+  return (
+    <div className="AnswerDetails">
+      <p>Deep Sky Blue.</p>
+      <p>By Steve</p>
+      <p><strong>Created at:</strong> 2018-01-01</p>
     </div>
   )
 }
 
 ReactDOM.render(
-  <QuestionDetails />,
+  <AnswerDetails />,
   document.getElementById('root')
 );
 registerServiceWorker();
