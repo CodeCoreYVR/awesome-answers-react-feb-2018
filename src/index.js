@@ -3,14 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
+function Field(props) {
+  return (
+    <p className="Field">
+      <strong>{props.name}:</strong> <em>{props.value}</em>
+    </p>
+  )
+}
+
 function QuestionDetails(props) {
   return (
     <div className="QuestionDetails">
       <h1>{props.title}</h1>
       <p>{props.body}</p>
       <p>By {props.user.full_name}</p>
-      <p><strong>View Count:</strong> {props.view_count}</p>
-      <p><strong>Created at:</strong> {props.created_at}</p>
+      <Field name="View Count" value={props.view_count} />
+      <Field name="Created At" value={props.created_at} />
     </div>
   );
 }
@@ -20,7 +28,7 @@ function AnswerDetails(props) {
     <div className="AnswerDetails">
       <p>{props.body}</p>
       <p>By {props.user.full_name}</p>
-      <p><strong>Created at:</strong> {props.created_at}</p>
+      <Field name="Created At" value={props.created_at} />
     </div>
   )
 }
