@@ -7,8 +7,27 @@ class QuestionIndexPage extends Component {
     super(props);
 
     this.state = {
+      loading: true,
       questions: allQuestions
     }
+
+    // Methods that used as callbacks will no longer
+    // be owned by their instance once they're called meaning
+    // that their `this` will be either `undefined` or
+    // `Window`. Use the `bind` on the method to permanently
+    // set its `this` to the instance's `this`.
+    this.deleteQuestion = this.deleteQuestion.bind(this);
+  }
+
+  deleteQuestion (event) {
+    const { currentTarget } = event;
+    const { questions } = this.state;
+
+    this.setState({
+      questions: questions.filter(
+        q => q.id !== parseInt(currentTarget.dataset.id, 10)
+      )
+    });
   }
 
   render () {
@@ -21,7 +40,18 @@ class QuestionIndexPage extends Component {
               (question, index) => (
                 <li key={question.id}>
                   <a href="">{question.title}</a>
-                  <Field name="Author" value={question.author.full_name} />
+                  <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between"
+                  }}>
+                    <Field name="Author" value={question.author.full_name} />
+                    <button
+                      data-id={question.id}
+                      onClick={this.deleteQuestion}>
+                      Delete
+                    </button>
+                  </div>
                 </li>
               )
             )
