@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { QuestionDetails } from "./QuestionDetails";
 import { AnswerList } from "./AnswerList";
+import { AnswerForm } from "./AnswerForm";
 import questionDetails from "../data/detailedQuestion";
 
 class QuestionShowPage extends Component {
@@ -13,12 +14,35 @@ class QuestionShowPage extends Component {
 
     this.deleteQuestion = this.deleteQuestion.bind(this);
     this.deleteAnswer = this.deleteAnswer.bind(this);
+    this.createAnswer = this.createAnswer.bind(this);
   }
 
   deleteQuestion() {
     this.setState({
       question: {}
     })
+  }
+
+  createAnswer(answer) {
+    // When creating components, try to keep your flat as
+    // much as possible. Deeply nested is hard to work with
+    // and is more difficult for React to figure out if it
+    // needs to re-render your components.
+    const { question } = this.state;
+    const { answers, ...restQuestion } = question;
+
+    this.setState({
+      question: {
+        ...restQuestion,
+        answers: [
+          {
+            ...answer,
+            created_at: new Date(),
+            id: Math.random() * 100000
+          }
+        ].concat(answers)
+      }
+    });
   }
 
   deleteAnswer(answerId) {
@@ -47,6 +71,9 @@ class QuestionShowPage extends Component {
         <QuestionDetails {...this.state.question} />
         <button onClick={this.deleteQuestion}>Delete</button>
         <h2>Answers</h2>
+        <AnswerForm
+          onSubmit={this.createAnswer}
+        />
         <AnswerList
           onAnswerDeleteClick={this.deleteAnswer}
           answers={this.state.question.answers}
