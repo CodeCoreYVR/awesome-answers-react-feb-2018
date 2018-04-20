@@ -12,11 +12,24 @@ class QuestionShowPage extends Component {
     };
 
     this.deleteQuestion = this.deleteQuestion.bind(this);
+    this.deleteAnswer = this.deleteAnswer.bind(this);
   }
 
   deleteQuestion() {
     this.setState({
       question: {}
+    })
+  }
+
+  deleteAnswer(answerId) {
+    const { question } = this.state;
+    const { answers = [], ...restQuestion } = question;
+
+    this.setState({
+      question: {
+        ...restQuestion,
+        answers: answers.filter(a => a.id !== answerId)
+      }
     })
   }
 
@@ -34,7 +47,10 @@ class QuestionShowPage extends Component {
         <QuestionDetails {...this.state.question} />
         <button onClick={this.deleteQuestion}>Delete</button>
         <h2>Answers</h2>
-        <AnswerList answers={this.state.question.answers} />
+        <AnswerList
+          onAnswerDeleteClick={this.deleteAnswer}
+          answers={this.state.question.answers}
+        />
       </main>
     )
   }
