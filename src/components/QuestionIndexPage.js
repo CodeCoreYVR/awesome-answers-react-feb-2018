@@ -19,15 +19,14 @@ class QuestionIndexPage extends Component {
     this.deleteQuestion = this.deleteQuestion.bind(this);
   }
 
-  deleteQuestion (event) {
-    const { currentTarget } = event;
-    const { questions } = this.state;
+  deleteQuestion (questionId) {
+    return () => {
+      const { questions } = this.state;
 
-    this.setState({
-      questions: questions.filter(
-        q => q.id !== parseInt(currentTarget.dataset.id, 10)
-      )
-    });
+      this.setState({
+        questions: questions.filter(q => q.id !== questionId)
+      });
+    }
   }
 
   render () {
@@ -46,9 +45,7 @@ class QuestionIndexPage extends Component {
                     justifyContent: "space-between"
                   }}>
                     <Field name="Author" value={question.author.full_name} />
-                    <button
-                      data-id={question.id}
-                      onClick={this.deleteQuestion}>
+                    <button onClick={this.deleteQuestion(question.id)}>
                       Delete
                     </button>
                   </div>
