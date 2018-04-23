@@ -2,19 +2,28 @@ import React, { Component } from "react";
 import { QuestionDetails } from "./QuestionDetails";
 import { AnswerList } from "./AnswerList";
 import { AnswerForm } from "./AnswerForm";
-import questionDetails from "../data/detailedQuestion";
+import { Question } from "../requests/question";
 
 class QuestionShowPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      question: questionDetails
+      loading: true,
+      question: {}
     };
 
     this.deleteQuestion = this.deleteQuestion.bind(this);
     this.deleteAnswer = this.deleteAnswer.bind(this);
     this.createAnswer = this.createAnswer.bind(this);
+  }
+
+  componentDidMount() {
+    Question
+      .one(219)
+      .then(question => {
+        this.setState({question: question, loading: false});
+      });
   }
 
   deleteQuestion() {
@@ -58,6 +67,14 @@ class QuestionShowPage extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <main className="QuestionShowPage">
+          <h2>Loading Question...</h2>
+        </main>
+      )
+    }
+
     if (!this.state.question.id) {
       return (
         <main className="QuestionShowPage">
