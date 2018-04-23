@@ -7,3 +7,28 @@ body {
 main {
   padding: 0 20px;
 }
+
+.NavBar {
+  display: flex;
+  background-color: black;
+  color: white;
+}
+
+.NavBar * {
+  color: inherit;
+}
+
+.NavBar > * {
+  padding: 0.75em 0.5em;
+  text-decoration: none;
+  border-top: 5px solid black;
+  transition: border-color 0.5s 0s;
+}
+
+.NavBar .active {
+  border-top: 5px solid white;
+}
+
+.NavBar > *:first-child {
+  margin-left: auto;
+}
