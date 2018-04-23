@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Field } from "./Field";
-import allQuestions from "../data/allQuestions";
+import { Question } from "../requests/question";
 
 class QuestionIndexPage extends Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class QuestionIndexPage extends Component {
 
     this.state = {
       loading: true,
-      questions: allQuestions
+      questions: []
     }
 
     // Methods that used as callbacks will no longer
@@ -17,6 +17,14 @@ class QuestionIndexPage extends Component {
     // `Window`. Use the `bind` on the method to permanently
     // set its `this` to the instance's `this`.
     this.deleteQuestion = this.deleteQuestion.bind(this);
+  }
+
+  componentDidMount () {
+    Question
+      .all()
+      .then(questions => {
+        this.setState({questions: questions, loading: false})
+      });
   }
 
   deleteQuestion (questionId) {
@@ -30,9 +38,17 @@ class QuestionIndexPage extends Component {
   }
 
   render () {
+    if (this.state.loading) {
+      return (
+        <main className="QuestionIndexPage">
+          <h2>Loading Questions...</h2>
+        </main>
+      );
+    }
+
     return (
       <main className="QuestionIndexPage">
-        <h1>Questions</h1>
+        <h2>Questions</h2>
         <ul>
           {
             this.state.questions.map(
