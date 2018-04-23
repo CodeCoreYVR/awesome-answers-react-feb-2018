@@ -3,11 +3,12 @@ import {
   // When doing named imports, you can use `as` to rename
   // an import in the context of a file.
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom';
 import { QuestionShowPage } from "./QuestionShowPage";
 import { QuestionIndexPage } from "./QuestionIndexPage";
-import { CurrentDateTime } from "./CurrentDateTime";
+import { QuestionNewPage } from "./QuestionNewPage";
 import { NavBar } from "./NavBar"
 
 function App () {
@@ -18,8 +19,16 @@ function App () {
     <Router>
       <div className="App">
         <NavBar />
-        <Route exact path="/questions" component={QuestionIndexPage} />
-        <Route path="/questions/:id" component={QuestionShowPage} />
+        <Switch>
+          {/*
+            Switch forces there to be only Route component
+            that matches. The first one that matches is the only
+            that is rendered inside of the Switch.
+          */}
+          <Route exact path="/questions" component={QuestionIndexPage} />
+          <Route path="/questions/new" component={QuestionNewPage} />
+          <Route path="/questions/:id" component={QuestionShowPage} />
+        </Switch>
       </div>
     </Router>
   )
