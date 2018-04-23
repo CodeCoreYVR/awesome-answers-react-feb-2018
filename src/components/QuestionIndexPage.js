@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Field } from "./Field";
 import { Question } from "../requests/question";
 
@@ -54,7 +55,9 @@ class QuestionIndexPage extends Component {
             this.state.questions.map(
               (question, index) => (
                 <li key={question.id}>
-                  <a href="">{question.title}</a>
+                  <Link to={`/questions/${question.id}`}>
+                    {question.title}
+                  </Link>
                   <div style={{
                     display: "flex",
                     alignItems: "center",
