@@ -22,10 +22,16 @@ class App extends Component {
     }
 
     this.signInUser =  this.signInUser.bind(this);
+    this.signOutUser = this.signOutUser.bind(this);
   }
 
   componentWillMount () {
     this.signInUser();
+  }
+
+  signOutUser() {
+    localStorage.removeItem("JWT");
+    this.setState({user: null});
   }
 
   signInUser() {
@@ -48,7 +54,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <NavBar user={user} />
+          <NavBar user={user} onSignOut={this.signOutUser} />
           <Switch>
             {/*
               Switch forces there to be only Route component
