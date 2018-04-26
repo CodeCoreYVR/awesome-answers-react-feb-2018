@@ -1,38 +1,53 @@
 import React, { Component } from "react";
 import { SignInForm } from "./SignInForm";
+import { Token } from "../requests/token";
 
 class SignInPage extends Component {
   constructor (props) {
     super(props);
 
     this.state = {
-      sessionParams: {
+      tokenParams: {
         email: "",
         password: ""
       }
     }
 
     this.updateForm = this.updateForm.bind(this);
+    this.signIn = this.signIn.bind(this);
+  }
+
+  signIn () {
+    const tokenParams = this.state.tokenParams;
+    const { onSignIn = () => {} } = this.props;
+
+    Token
+      .create(tokenParams)
+      .then(data => {
+        onSignIn(data);
+        localStorage.setItem("JWT", data.jwt);
+        this.props.history.push("/");
+      });
   }
 
   updateForm (params) {
     this.setState({
-      sessionParams: {
-        ...this.state.sessionParams,
+      tokenParams: {
+        ...this.state.tokenParams,
         ...params
       }
     })
   }
 
   render () {
-    const { sessionParams } = this.state;
+    const { tokenParams } = this.state;
 
     return (
       <main className="SignInPage">
         <SignInForm
-          onSubmit={() => console.log("Test!")}
+          onSubmit={this.signIn}
           onChange={this.updateForm}
-          {...sessionParams}
+          {...tokenParams}
         />
       </main>
     );
