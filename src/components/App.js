@@ -9,7 +9,8 @@ import {
 import { QuestionShowPage } from "./QuestionShowPage";
 import { QuestionIndexPage } from "./QuestionIndexPage";
 import { QuestionNewPage } from "./QuestionNewPage";
-import { NavBar } from "./NavBar"
+import { SignInPage } from "./SignInPage";
+import { NavBar } from "./NavBar";
 
 function App () {
   // Whe using react-router, you must the <Router> component
@@ -25,6 +26,7 @@ function App () {
             that matches. The first one that matches is the only
             that is rendered inside of the Switch.
           */}
+          <Route path="/sign_in" component={SignInPage} />
           <Route exact path="/questions" component={QuestionIndexPage} />
           <Route path="/questions/new" component={QuestionNewPage} />
           <Route path="/questions/:id" component={QuestionShowPage} />
