@@ -24,8 +24,8 @@ class SignInPage extends Component {
     Token
       .create(tokenParams)
       .then(data => {
-        onSignIn(data);
         localStorage.setItem("JWT", data.jwt);
+        onSignIn(data);
         this.props.history.push("/");
       });
   }
