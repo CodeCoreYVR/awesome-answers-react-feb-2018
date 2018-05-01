@@ -5,6 +5,11 @@ import { Question } from "../requests/question";
 class QuestionNewPage extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      validationErrors: []
+    };
+
     this.createQuestion = this.createQuestion.bind(this);
   }
 
@@ -12,8 +17,18 @@ class QuestionNewPage extends Component {
     Question
       .create(params)
       .then(data => {
-        const questionId = data.id;
-        this.props.history.push(`/questions/${questionId}`);
+        if (data.errors) {
+          this.setState({
+            validationErrors: data
+              .errors
+              .filter(
+                e => e.type = "ActiveRecord::RecordInvalid"
+              )
+          })
+        } else {
+          const questionId = data.id;
+          this.props.history.push(`/questions/${questionId}`);
+        }
       })
   }
 
@@ -21,7 +36,10 @@ class QuestionNewPage extends Component {
     return (
       <main className="QuestionNewPage">
         <h2>Question New Page</h2>
-        <QuestionForm onSubmit={this.createQuestion} />
+        <QuestionForm
+          errors={this.state.validationErrors}
+          onSubmit={this.createQuestion}
+        />
       </main>
     );
   }
