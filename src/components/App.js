@@ -10,6 +10,8 @@ import { QuestionShowPage } from "./QuestionShowPage";
 import { QuestionIndexPage } from "./QuestionIndexPage";
 import { QuestionNewPage } from "./QuestionNewPage";
 import { SignInPage } from "./SignInPage";
+import { NotFoundPage } from "./NotFoundPage";
+import { HomePage } from "./HomePage";
 import { NavBar } from "./NavBar";
 import { AuthRoute } from "./AuthRoute";
 import jwtDecode from "jwt-decode";
@@ -62,6 +64,7 @@ class App extends Component {
               that matches. The first one that matches is the only
               that is rendered inside of the Switch.
             */}
+            <Route exact path="/" component={HomePage} />
             <Route
               path="/sign_in"
               render={
@@ -85,6 +88,7 @@ class App extends Component {
               path="/questions/:id"
               component={QuestionShowPage}
             />
+            <Route component={NotFoundPage} />
           </Switch>
         </div>
       </Router>
