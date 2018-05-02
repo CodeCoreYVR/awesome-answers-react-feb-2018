@@ -8,6 +8,7 @@ class QuestionIndexPage extends Component {
     super(props);
 
     this.state = {
+      page: 1,
       loading: true,
       questions: []
     }
@@ -20,9 +21,18 @@ class QuestionIndexPage extends Component {
     this.deleteQuestion = this.deleteQuestion.bind(this);
   }
 
+  componentWillMount () {
+    const queryString = this.props.location.search;
+    const page = new URLSearchParams(queryString).get("page") || 1;
+
+    this.setState({
+      page: page
+    });
+  }
+
   componentDidMount () {
     Question
-      .all()
+      .all({page: this.state.page})
       .then(questions => {
         this.setState({questions: questions, loading: false})
       });
@@ -73,6 +83,9 @@ class QuestionIndexPage extends Component {
             )
           }
         </ul>
+        <Link to={`/questions?page=${this.state.page + 1}`}>
+          Next Page
+        </Link>
       </main>
     )
   }

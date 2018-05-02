@@ -15,10 +15,12 @@ export const Question = {
       { headers: { 'Authorization' : getJWT() } }
     ).then(response => response.json())
   },
-  all() {
+  all(queryParams) {
     return fetch(
-      `${BASE_URL}/questions`,
-      { headers: { 'Authorization' : getJWT() } }
+      `${BASE_URL}/questions?${new URLSearchParams(queryParams).toString()}`,
+      {
+        headers: { 'Authorization' : getJWT() }
+      }
     ).then(response => response.json())
   },
   create(params) {
